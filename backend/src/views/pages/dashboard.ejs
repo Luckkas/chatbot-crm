@@ -1,0 +1,109 @@
+<%- include('../partials/header') %>
+
+<div class="d-flex flex-column flex-md-row justify-content-between gap-3 align-items-md-center mb-4">
+  <div>
+    <h1 class="h3 mb-1">Dashboard</h1>
+    <p class="text-secondary mb-0">Visao inicial do painel para testes e demonstracao do chatbot.</p>
+  </div>
+  <span class="badge text-bg-success align-self-start align-self-md-center">Banco conectado</span>
+</div>
+
+<section class="row g-3 mb-4">
+  <div class="col-12 col-md-6 col-xl-3">
+    <div class="card h-100">
+      <div class="card-body">
+        <p class="text-secondary mb-1">Clientes</p>
+        <strong class="fs-3"><%= resumo.totalClientes %></strong>
+      </div>
+    </div>
+  </div>
+  <div class="col-12 col-md-6 col-xl-3">
+    <div class="card h-100">
+      <div class="card-body">
+        <p class="text-secondary mb-1">Conversas abertas</p>
+        <strong class="fs-3"><%= resumo.conversasAbertas %></strong>
+      </div>
+    </div>
+  </div>
+  <div class="col-12 col-md-6 col-xl-3">
+    <div class="card h-100">
+      <div class="card-body">
+        <p class="text-secondary mb-1">Mensagens recebidas hoje</p>
+        <strong class="fs-3"><%= resumo.mensagensRecebidasHoje %></strong>
+      </div>
+    </div>
+  </div>
+  <div class="col-12 col-md-6 col-xl-3">
+    <div class="card h-100">
+      <div class="card-body">
+        <p class="text-secondary mb-1">Mensagens enviadas hoje</p>
+        <strong class="fs-3"><%= resumo.mensagensEnviadasHoje %></strong>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="row g-3">
+  <div class="col-12 col-lg-8">
+    <div class="card h-100">
+      <div class="card-header bg-white">
+        <strong>Ultimas mensagens</strong>
+      </div>
+      <div class="card-body">
+        <% if (resumo.ultimasMensagens.length === 0) { %>
+          <p class="text-secondary mb-0">Nenhuma mensagem registrada ainda.</p>
+        <% } else { %>
+          <div class="table-responsive">
+            <table class="table table-sm align-middle mb-0">
+              <thead>
+                <tr>
+                  <th>Telefone</th>
+                  <th>Direcao</th>
+                  <th>Conteudo</th>
+                  <th>Data</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% resumo.ultimasMensagens.forEach((mensagem) => { %>
+                  <tr>
+                    <td><%= mensagem.telefone %></td>
+                    <td><span class="badge text-bg-<%= mensagem.direcao === 'enviada' ? 'primary' : 'success' %>"><%= mensagem.direcao %></span></td>
+                    <td class="text-truncate table-text"><%= mensagem.conteudo %></td>
+                    <td><%= mensagem.dataHora.toLocaleString('pt-BR') %></td>
+                  </tr>
+                <% }) %>
+              </tbody>
+            </table>
+          </div>
+        <% } %>
+      </div>
+    </div>
+  </div>
+  <div class="col-12 col-lg-4">
+    <div class="card h-100">
+      <div class="card-header bg-white">
+        <strong>Status dos servicos</strong>
+      </div>
+      <div class="list-group list-group-flush">
+        <div class="list-group-item d-flex justify-content-between align-items-center">
+          Backend
+          <span class="badge text-bg-success">online</span>
+        </div>
+        <div class="list-group-item d-flex justify-content-between align-items-center">
+          PostgreSQL
+          <span class="badge text-bg-success">online</span>
+        </div>
+        <div class="list-group-item d-flex justify-content-between align-items-center">
+          WAHA
+          <span class="badge text-bg-secondary">pendente</span>
+        </div>
+        <div class="list-group-item d-flex justify-content-between align-items-center">
+          n8n
+          <span class="badge text-bg-secondary">pendente</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<%- include('../partials/footer') %>
