@@ -91,13 +91,43 @@ model LogIntegracao {
 }
 
 model ContatoEnvio {
-  id         Int      @id @default(autoincrement())
-  nome       String
-  telefone   String   @unique
-  ativo      Boolean  @default(true)
-  observacao String?
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
+  id              Int              @id @default(autoincrement())
+  nome            String
+  telefone        String           @unique
+  ativo           Boolean          @default(true)
+  observacao      String?
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @updatedAt
+  disparoContatos DisparoContato[]
 
   @@map("contatos_envio")
+}
+
+model DisparoMensagem {
+  id        Int              @id @default(autoincrement())
+  titulo    String
+  mensagem  String
+  status    String           @default("pendente")
+  createdAt DateTime         @default(now())
+  updatedAt DateTime         @updatedAt
+  contatos  DisparoContato[]
+
+  @@index([status])
+  @@map("disparos_mensagem")
+}
+
+model DisparoContato {
+  id          Int             @id @default(autoincrement())
+  disparoId   Int
+  contatoId   Int
+  statusEnvio String          @default("pendente")
+  dataEnvio   DateTime?
+  erroEnvio   String?
+  disparo     DisparoMensagem @relation(fields: [disparoId], references: [id], onDelete: Cascade)
+  contato     ContatoEnvio    @relation(fields: [contatoId], references: [id], onDelete: Cascade)
+
+  @@unique([disparoId, contatoId])
+  @@index([statusEnvio])
+  @@index([contatoId])
+  @@map("disparos_contatos")
 }
