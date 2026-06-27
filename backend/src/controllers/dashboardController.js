@@ -4,15 +4,18 @@ const conversaService = require('../services/conversaService');
 const mensagemService = require('../services/mensagemService');
 const menuService = require('../services/menuService');
 const logService = require('../services/logService');
+const wahaService = require('../services/wahaService');
 
 async function index(req, res, next) {
   try {
     const resumo = await dashboardService.obterResumo();
+    const wahaStatus = await wahaService.verificarStatus();
 
     res.render('pages/dashboard', {
       title: 'Dashboard',
       activePage: 'dashboard',
-      resumo
+      resumo,
+      wahaStatus
     });
   } catch (error) {
     next(error);

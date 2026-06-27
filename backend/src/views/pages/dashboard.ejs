@@ -95,15 +95,55 @@
         </div>
         <div class="list-group-item d-flex justify-content-between align-items-center">
           WAHA
-          <span class="badge text-bg-secondary">pendente</span>
+          <span class="badge text-bg-<%= wahaStatus.online ? 'success' : 'secondary' %>"><%= wahaStatus.status %></span>
         </div>
         <div class="list-group-item d-flex justify-content-between align-items-center">
           n8n
           <span class="badge text-bg-secondary">pendente</span>
         </div>
       </div>
+      <div class="card-body border-top">
+        <div class="d-grid gap-2">
+          <button class="btn btn-success btn-sm" type="button" data-waha-action="/api/waha/start">Iniciar WAHA</button>
+          <button class="btn btn-warning btn-sm" type="button" data-waha-action="/api/waha/restart">Reiniciar WAHA</button>
+          <button class="btn btn-outline-danger btn-sm" type="button" data-waha-action="/api/waha/stop">Parar WAHA</button>
+        </div>
+        <p class="text-secondary small mb-0 mt-3">Docker compose: <%= wahaStatus.composeDir %></p>
+        <div class="alert alert-secondary d-none mt-3 mb-0" id="wahaActionMessage" role="alert"></div>
+      </div>
     </div>
   </div>
 </section>
+
+<script>
+  document.querySelectorAll('[data-waha-action]').forEach((button) => {
+    button.addEventListener('click', async () => {
+      const message = document.getElementById('wahaActionMessage');
+      const buttons = document.querySelectorAll('[data-waha-action]');
+
+      message.className = 'alert alert-secondary mt-3 mb-0';
+      message.textContent = 'Executando comando...';
+      buttons.forEach((item) => item.disabled = true);
+
+      try {
+        const response = await fetch(button.dataset.wahaAction, { method: 'POST' });
+        const data = await response.json();
+
+        if (!response.ok) {
+          throw new Error(data.erro || 'Nao foi possivel executar o comando.');
+        }
+
+        message.className = 'alert alert-success mt-3 mb-0';
+        message.textContent = 'Comando executado com sucesso.';
+
+        setTimeout(() => window.location.reload(), 1200);
+      } catch (error) {
+        message.className = 'alert alert-danger mt-3 mb-0';
+        message.textContent = error.message;
+        buttons.forEach((item) => item.disabled = false);
+      }
+    });
+  });
+</script>
 
 <%- include('../partials/footer') %>

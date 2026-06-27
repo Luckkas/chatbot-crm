@@ -18,7 +18,27 @@ async function buscarPorCodigo(req, res, next) {
   }
 }
 
+async function textoInicial(req, res, next) {
+  try {
+    const texto = await menuService.obterTextoInicial();
+    res.json({ texto });
+  } catch (error) {
+    next(error);
+  }
+}
+
+async function opcoesAtivas(req, res, next) {
+  try {
+    const opcoes = await menuService.listarAtivas();
+    res.json(opcoes);
+  } catch (error) {
+    next(error);
+  }
+}
+
 module.exports = {
   listar,
-  buscarPorCodigo
+  buscarPorCodigo,
+  textoInicial,
+  opcoesAtivas
 };

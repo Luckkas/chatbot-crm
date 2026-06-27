@@ -53,14 +53,25 @@ model Mensagem {
 
 model MenuOpcao {
   id                 Int      @id @default(autoincrement())
-  codigo             String   @unique
+  codigo             String
   descricao          String
   respostaAutomatica String
   ativo              Boolean  @default(true)
   dataCriacao        DateTime @default(now())
   dataAtualizacao    DateTime @updatedAt
 
+  @@index([codigo])
   @@map("menu_opcoes")
+}
+
+model MenuConfiguracao {
+  id              Int      @id @default(autoincrement())
+  chave           String   @unique
+  valor           String
+  dataCriacao     DateTime @default(now())
+  dataAtualizacao DateTime @updatedAt
+
+  @@map("menu_configuracoes")
 }
 
 model LogIntegracao {
@@ -77,4 +88,16 @@ model LogIntegracao {
   @@index([tipo])
   @@index([dataHora])
   @@map("logs_integracao")
+}
+
+model ContatoEnvio {
+  id         Int      @id @default(autoincrement())
+  nome       String
+  telefone   String   @unique
+  ativo      Boolean  @default(true)
+  observacao String?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@map("contatos_envio")
 }

@@ -31,12 +31,30 @@ const opcoes = [
 
 async function main() {
   for (const opcao of opcoes) {
-    await prisma.menuOpcao.upsert({
-      where: { codigo: opcao.codigo },
-      update: opcao,
-      create: opcao
+    const existente = await prisma.menuOpcao.findFirst({
+      where: { codigo: opcao.codigo }
     });
+
+    if (existente) {
+      await prisma.menuOpcao.update({
+        where: { id: existente.id },
+        data: opcao
+      });
+    } else {
+      await prisma.menuOpcao.create({
+        data: opcao
+      });
+    }
   }
+
+  await prisma.menuConfiguracao.upsert({
+    where: { chave: 'menu_inicial' },
+    update: {},
+    create: {
+      chave: 'menu_inicial',
+      valor: 'Ola! Escolha uma opcao:\n1. Suporte\n2. Financeiro\n3. Planos'
+    }
+  });
 }
 
 main()

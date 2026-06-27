@@ -3,12 +3,41 @@
 <div class="d-flex flex-column flex-md-row justify-content-between gap-3 align-items-md-center mb-4">
   <div>
     <h1 class="h3 mb-1">Menus</h1>
-    <p class="text-secondary mb-0">Opcoes usadas para responder mensagens no fluxo inicial.</p>
+    <p class="text-secondary mb-0">Textos usados pelo n8n/WAHA nas mensagens do chatbot.</p>
   </div>
-  <span class="badge text-bg-secondary align-self-start align-self-md-center"><%= menus.length %> registro(s)</span>
+  <a class="btn btn-primary align-self-start align-self-md-center" href="/menu/opcoes/nova">Nova opcao</a>
+</div>
+
+<% if (mensagem.sucesso) { %>
+  <div class="alert alert-success"><%= mensagem.sucesso %></div>
+<% } %>
+
+<% if (mensagem.erro) { %>
+  <div class="alert alert-danger"><%= mensagem.erro %></div>
+<% } %>
+
+<div class="card mb-4">
+  <div class="card-header bg-white">
+    <strong>Texto do menu inicial</strong>
+  </div>
+  <div class="card-body">
+    <form method="post" action="/menu/texto-inicial">
+      <div class="mb-3">
+        <label class="form-label" for="textoInicial">Mensagem enviada antes das opcoes</label>
+        <textarea class="form-control" id="textoInicial" name="textoInicial" rows="5" required><%= textoInicial %></textarea>
+      </div>
+      <div class="d-flex justify-content-end">
+        <button class="btn btn-primary" type="submit">Salvar texto inicial</button>
+      </div>
+    </form>
+  </div>
 </div>
 
 <div class="card">
+  <div class="card-header bg-white d-flex justify-content-between align-items-center">
+    <strong>Opcoes do menu</strong>
+    <span class="badge text-bg-secondary"><%= menus.length %> registro(s)</span>
+  </div>
   <div class="card-body">
     <% if (menus.length === 0) { %>
       <p class="text-secondary mb-0">Nenhuma opcao de menu cadastrada ainda.</p>
@@ -22,6 +51,7 @@
               <th>Resposta automatica</th>
               <th>Status</th>
               <th>Atualizacao</th>
+              <th class="text-end">Acoes</th>
             </tr>
           </thead>
           <tbody>
@@ -32,6 +62,17 @@
                 <td class="text-truncate table-text"><%= menu.respostaAutomatica %></td>
                 <td><span class="badge text-bg-<%= menu.ativo ? 'success' : 'secondary' %>"><%= menu.ativo ? 'ativo' : 'inativo' %></span></td>
                 <td><%= menu.dataAtualizacao.toLocaleString('pt-BR') %></td>
+                <td>
+                  <div class="d-flex justify-content-end gap-2 flex-wrap">
+                    <a class="btn btn-sm btn-outline-primary" href="/menu/opcoes/<%= menu.id %>/editar">Editar</a>
+                    <form method="post" action="/menu/opcoes/<%= menu.id %>/toggle">
+                      <button class="btn btn-sm btn-outline-secondary" type="submit"><%= menu.ativo ? 'Desativar' : 'Ativar' %></button>
+                    </form>
+                    <form method="post" action="/menu/opcoes/<%= menu.id %>/excluir" onsubmit="return confirm('Excluir esta opcao de menu?');">
+                      <button class="btn btn-sm btn-outline-danger" type="submit">Excluir</button>
+                    </form>
+                  </div>
+                </td>
               </tr>
             <% }) %>
           </tbody>

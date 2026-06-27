@@ -9,6 +9,9 @@ const conversaRoutes = require('./routes/conversaRoutes');
 const mensagemRoutes = require('./routes/mensagemRoutes');
 const logRoutes = require('./routes/logRoutes');
 const webhookRoutes = require('./routes/webhookRoutes');
+const wahaRoutes = require('./routes/wahaRoutes');
+const contatoEnvioApiRoutes = require('./routes/contatoEnvioApiRoutes');
+const contatoEnvioPageRoutes = require('./routes/contatoEnvioPageRoutes');
 
 const app = express();
 
@@ -20,6 +23,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', dashboardRoutes);
+app.use('/contatos-envio', contatoEnvioPageRoutes);
 app.use('/api', healthRoutes);
 app.use('/api/menu', menuRoutes);
 app.use('/api/clientes', clienteRoutes);
@@ -27,6 +31,8 @@ app.use('/api/conversas', conversaRoutes);
 app.use('/api/mensagens', mensagemRoutes);
 app.use('/api/logs', logRoutes);
 app.use('/api/webhook', webhookRoutes);
+app.use('/api/waha', wahaRoutes);
+app.use('/api/contatos-envio', contatoEnvioApiRoutes);
 
 app.use((req, res) => {
   res.status(404).render('pages/not-found', {
