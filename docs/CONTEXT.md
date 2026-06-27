@@ -46,8 +46,10 @@ Ele pode ser:
 
 ## Decisões tomadas
 
-- Usar ASP.NET Core MVC em vez de React no primeiro momento.
-- Usar SQLite inicialmente.
+- Usar Node.js/Express em vez de ASP.NET para alinhar com a stack do Gidian.
+- Usar PostgreSQL local em vez de SQLite.
+- Usar Prisma ORM.
+- Usar EJS + Bootstrap para entregar dashboard rápido.
 - Priorizar entrega rápida.
 - Evitar complexidade desnecessária.
 - Criar APIs simples para integração com n8n.

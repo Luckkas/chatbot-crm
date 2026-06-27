@@ -11,11 +11,11 @@ WAHA
   ↓
 n8n
   ↓
-Backend ASP.NET Core
+Backend Node/Express
   ↓
-SQLite
+PostgreSQL
   ↓
-Dashboard MVC
+Dashboard EJS
 ```
 
 ## Componentes
@@ -37,7 +37,7 @@ Responsável por:
 - chamar backend quando necessário;
 - enviar respostas pelo WAHA.
 
-### Backend ASP.NET Core
+### Backend Node.js / Express
 
 Responsável por:
 - armazenar clientes;
@@ -47,7 +47,16 @@ Responsável por:
 - fornecer APIs para o n8n;
 - permitir configuração simples do menu.
 
-### Dashboard
+### PostgreSQL
+
+Responsável por persistir:
+- clientes;
+- conversas;
+- mensagens;
+- opções de menu;
+- logs de integração.
+
+### Dashboard EJS
 
 Responsável por:
 - exibir visão geral;
@@ -83,6 +92,23 @@ n8n envia resposta pelo WAHA
   "origem": "whatsapp",
   "dataHora": "2026-06-26T23:00:00"
 }
+```
+
+## Estrutura sugerida
+
+```text
+backend/
+  src/
+    controllers/
+    services/
+    repositories/
+    routes/
+    views/
+    public/
+    prisma/
+    app.js
+    server.js
+  package.json
 ```
 
 ## Observação

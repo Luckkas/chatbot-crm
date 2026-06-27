@@ -41,27 +41,29 @@ O backend definitivo poderá ser refeito, expandido ou substituído posteriormen
 
 ## Stack inicial recomendada
 
-Para entregar rápido:
+Para alinhar com a stack mais comum do Gidian e facilitar reaproveitamento:
 
-- ASP.NET Core MVC
-- Entity Framework Core
-- SQLite
+- Node.js
+- Express
+- Prisma ORM
+- PostgreSQL local
+- EJS
 - Bootstrap
-- Swagger para APIs
-
-Evitar React no primeiro momento para reduzir complexidade.
 
 ## Módulos do MVP
 
 ### 1. Dashboard
+
 Exibir:
 - total de clientes
 - mensagens recebidas hoje
 - mensagens enviadas hoje
 - atendimentos abertos
 - últimas mensagens
+- status WAHA/n8n/backend
 
 ### 2. Clientes
+
 Campos:
 - id
 - nome
@@ -71,6 +73,7 @@ Campos:
 - observações
 
 ### 3. Conversas
+
 Campos:
 - id
 - clienteId
@@ -81,6 +84,7 @@ Campos:
 - data de atualização
 
 ### 4. Mensagens
+
 Campos:
 - id
 - conversaId
@@ -91,6 +95,7 @@ Campos:
 - data/hora
 
 ### 5. Menus do bot
+
 Permitir cadastrar opções simples:
 - código da opção
 - descrição
@@ -98,6 +103,7 @@ Permitir cadastrar opções simples:
 - ativo/inativo
 
 ### 6. Logs
+
 Registrar eventos importantes:
 - webhook recebido
 - mensagem enviada
@@ -111,7 +117,7 @@ Registrar eventos importantes:
 
 ```http
 GET /api/clientes
-GET /api/clientes/telefone/{telefone}
+GET /api/clientes/telefone/:telefone
 POST /api/clientes
 ```
 
@@ -120,7 +126,7 @@ POST /api/clientes
 ```http
 GET /api/conversas
 POST /api/conversas
-GET /api/conversas/telefone/{telefone}
+GET /api/conversas/telefone/:telefone
 ```
 
 ### Mensagens
@@ -134,7 +140,7 @@ POST /api/mensagens
 
 ```http
 GET /api/menu
-GET /api/menu/opcao/{codigo}
+GET /api/menu/opcao/:codigo
 ```
 
 ### Logs
@@ -150,9 +156,9 @@ GET /api/logs
 - Evitar overengineering.
 - Priorizar entrega.
 - Usar nomes em português para entidades principais.
-- Separar Controllers, Services, Models e Data.
-- Usar DTOs para entrada e saída de API.
-- Deixar Swagger habilitado.
+- Separar routes, controllers, services, repositories e views.
+- Usar Prisma como ORM.
+- Usar PostgreSQL local.
 - Criar seed inicial com menus 1, 2, 3 e inválido.
 
 ## Critério de sucesso

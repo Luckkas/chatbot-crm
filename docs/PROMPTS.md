@@ -4,11 +4,11 @@
 
 Leia o PLANNING.md, ARCHITECTURE.md e CONTEXT.md.
 
-Crie a estrutura inicial do projeto ASP.NET Core MVC usando Entity Framework Core com SQLite. Não implemente autenticação ainda. Priorize simplicidade e entrega.
+Crie a estrutura inicial do projeto Node.js usando Express, Prisma ORM, PostgreSQL, EJS e Bootstrap. Não implemente autenticação ainda. Priorize simplicidade e entrega.
 
 ## Criar clientes
 
-Implemente CRUD de Clientes com Controller API e telas MVC. Campos: nome, telefone, status, observações e data de cadastro.
+Implemente CRUD de Clientes com rotas API e telas EJS. Campos: nome, telefone, status, observações e data de cadastro.
 
 ## Criar conversas
 

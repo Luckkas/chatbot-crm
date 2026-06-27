@@ -2,14 +2,15 @@
 
 ## Etapa 1 — Base do projeto
 
-- [ ] Criar solução ASP.NET Core MVC
-- [ ] Configurar Entity Framework Core
-- [ ] Configurar SQLite
+- [ ] Criar projeto Node.js
+- [ ] Configurar Express
+- [ ] Configurar Prisma
+- [ ] Configurar PostgreSQL local
 - [ ] Criar estrutura de pastas
-- [ ] Ativar Swagger
 - [ ] Criar layout base com Bootstrap
+- [ ] Criar dashboard inicial
 
-## Etapa 2 — Modelos
+## Etapa 2 — Modelos Prisma
 
 - [ ] Criar model Cliente
 - [ ] Criar model Conversa
@@ -19,18 +20,18 @@
 
 ## Etapa 3 — Banco
 
-- [ ] Criar DbContext
+- [ ] Criar schema Prisma
+- [ ] Configurar DATABASE_URL
 - [ ] Criar migrations
-- [ ] Criar banco SQLite
 - [ ] Criar seed inicial
 
 ## Etapa 4 — APIs
 
-- [ ] Criar ClientesController
-- [ ] Criar ConversasController
-- [ ] Criar MensagensController
-- [ ] Criar MenuController
-- [ ] Criar LogsController
+- [ ] Criar rotas de Clientes
+- [ ] Criar rotas de Conversas
+- [ ] Criar rotas de Mensagens
+- [ ] Criar rotas de Menu
+- [ ] Criar rotas de Logs
 
 ## Etapa 5 — Telas
 

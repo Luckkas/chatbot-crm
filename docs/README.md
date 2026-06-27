@@ -11,12 +11,16 @@ Este projeto **não é necessariamente o backend definitivo**. Ele serve como pr
 ## Stack sugerida
 
 ### Backend e painel
-- ASP.NET Core MVC
-- Entity Framework Core
-- SQLite inicialmente
+
+- Node.js
+- Express
+- Prisma ORM
+- PostgreSQL local
+- EJS para renderização das páginas
 - Bootstrap para interface
 
 ### Automação
+
 - WAHA para integração com WhatsApp
 - n8n para orquestração dos fluxos
 - Webhooks para comunicação entre sistemas
@@ -30,9 +34,11 @@ WAHA
    ↓
 n8n
    ↓
-Backend / Dashboard
+Backend Express
    ↓
-Banco de dados
+PostgreSQL
+   ↓
+Dashboard
 ```
 
 ## Funcionalidades do MVP
